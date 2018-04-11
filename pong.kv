@@ -1,0 +1,179 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#:import wb webbrowser
+#:kivy 1.9.1
+
+<TelaMenu>:
+    canvas:
+        Rectangle:
+            source: 'img/tela-inicial-bg.png'
+            size: self.width, self.height
+
+    Button:
+        size_hint: 0.166, 0.075
+        center_x: root.center_x - self.width
+        center_y: root.center_y - 100
+        background_normal: 'img/iniciar-btn-normal.png'
+        background_down: 'img/iniciar-btn-pressed.png'
+        on_release:
+            root.manager.transition.direction = 'left'
+            root.manager.current = 'jogo'
+
+    Button:
+        size_hint: 0.166, 0.075
+        center_x: root.center_x + self.width
+        center_y: root.center_y - 100
+        background_normal: 'img/fechar-btn-normal.png'
+        background_down: 'img/fechar-btn-pressed.png'
+        on_press: app.stop()
+
+<Bola>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            source: 'img/bola.png'
+            pos: self.pos
+            size: self.size
+
+<Raquete>:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            source: 'img/raquete.png'
+            pos:self.pos
+            size:self.size
+
+<Pong>:
+    bola: bola
+    raquete_1: raquete_esquerda
+    raquete_2: raquete_direita
+
+    canvas:
+        Rectangle:
+            source: 'img/campo.png'
+            size: self.width, self.height
+
+    Label:
+        font_size: 16
+        center_x: root.width/4
+        top: root.top + 20
+        text: "Jogador 1"
+        color: (0,0,0,1)
+
+    Label:
+        font_size: 16
+        center_x: root.width * 3/4
+        top: root.top + 20
+        text: "Jogador 2"
+        color: (0,0,0,1)
+
+    Label:
+        font_size: 50
+        center_x: root.width/4
+        top: root.top - 20
+        text: str(root.raquete_1.placar)
+        color: (0,0,0,1)
+
+    Label:
+        font_size: 50
+        center_x: root.width * 3/4
+        top: root.top - 20
+        text: str(root.raquete_2.placar)
+        color: (0,0,0,1)
+
+    Bola:
+        id: bola
+        center: self.parent.center
+
+    Raquete:
+        id: raquete_esquerda
+        x: root.x
+        source: 'img/raquete_1.png'
+        center_y: root.center_y
+
+    Raquete:
+        id: raquete_direita
+        x: root.width-self.width
+        center_y: root.center_y
+
+    Button:
+        size: 200, 60
+		background_normal: 'img/iniciar-btn-normal.png'
+        background_down: 'img/iniciar-btn-pressed.png'
+        center_x: root.width/6
+        on_press:
+            root.remove_btn(self)
+            root.comeca_jogo()
+            reinicia_jogo_btn.center_x = 1 * root.width/4
+            menu_btn.center_x = 3 * root.width/4
+
+    Button:
+        id: reinicia_jogo_btn
+        size: 200, 60
+		background_normal: 'img/reiniciar-btn-normal.png'
+        background_down: 'img/reiniciar-btn-pressed.png'
+        center_x: 3 * root.width/6
+        on_press:
+            root.reinicia_jogo()
+
+    Button:
+        id: menu_btn
+        size: 200, 60
+		background_normal: 'img/menu-btn-normal.png'
+        background_down: 'img/menu-btn-pressed.png'
+        center_x: 5 * root.width/6
+        on_press:
+            root.screen_manager.transition.direction = "right"
+            root.screen_manager.current = "menu"
+            root.servico(vel=(0, 0))
+
+<TelaJogo>:
+<TelaVencedor1>:
+    canvas:
+        Rectangle:
+            source: 'img/vencedor-1.png'
+            size: self.width, self.height
+
+    Button:        
+        size_hint: 0.25, 0.075
+        pos_hint: {'top': 0.5, 'right': (0.7 + (self.width/2)/root.width)}
+        background_normal: 'img/back-to-menu-btn-normal.png'
+        background_down: 'img/back-to-menu-btn-pressed.png'
+        center_x: root.center_x + self.width/2 + 20
+        on_press:
+            root.manager.current = "menu"
+            root.manager.transition.direction = "right"
+
+    Button:
+        # 300px x 60px
+        size_hint: 0.25, 0.075
+        pos_hint: {'top': 0.5, 'right': (0.3 + (self.width/2)/root.width)}
+        center_x: root.center_x + self.width/2 + 20
+        background_normal: 'img/link-btn-normal.png'
+        on_press:
+            wb.open("https://pythonacademy.com.br")
+
+<TelaVencedor2>:
+    canvas:
+        Rectangle:
+            source: 'img/vencedor-2.png'
+            size: self.width, self.height
+
+    Button:        
+        size_hint: 0.25, 0.075
+        pos_hint: {'top': 0.5, 'right': (0.7 + (self.width/2)/root.width)}
+        background_normal: 'img/back-to-menu-btn-normal.png'
+        background_down: 'img/back-to-menu-btn-pressed.png'
+        center_x: root.center_x + self.width/2 + 20
+        on_press:
+            root.manager.current = "menu"
+            root.manager.transition.direction = "right"
+
+    Button:
+        # 300px x 60px
+        size_hint: 0.25, 0.075
+        pos_hint: {'top': 0.5, 'right': (0.3 + (self.width/2)/root.width)}
+        center_x: root.center_x + self.width/2 + 20
+        background_normal: 'img/link-btn-normal.png'
+        on_press:
+            wb.open("https://pythonacademy.com.br")

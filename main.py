@@ -11,8 +11,10 @@ from widgets         import Pong, Raquete, Bola
 from telas           import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 
+
 # Carrega nosso arquivo de configurações
 Config.read("config.ini")
+
 
 # Cria nosso Gerenciador de Telas
 screen_manager = ScreenManager()

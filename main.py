@@ -18,7 +18,8 @@ Config.read("config.ini")
 # Cria nosso Gerenciador de Telas
 screen_manager = ScreenManager()
 
-
+# Teste da Pipeline
+#
 class PongApp(App):
 
     def build(self):
